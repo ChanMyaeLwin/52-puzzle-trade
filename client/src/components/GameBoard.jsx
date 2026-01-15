@@ -303,22 +303,14 @@ export default function GameBoard(){
       console.log('[TIMER] Time expired, requesting score...')
       socket.emit('game:score', { code }, (res) => {
         console.log('[TIMER] Score response:', res)
-        console.log('[TIMER] Leaderboard:', res?.result?.leaderboard)
-        if (res?.ok && res.result) {
+        if (res?.ok && res.result && Array.isArray(res.result.leaderboard)) {
           console.log('[TIMER] Setting final result data:', res.result)
-          // Log each player's data
-          res.result.leaderboard?.forEach((player, i) => {
-            console.log(`[TIMER] Player ${i}:`, {
-              name: player.playerName,
-              id: player.playerId,
-              points: player.totalPoints,
-              cards: player.totalCards
-            })
-          })
           setFinalResultData(res.result)
           setFinalResultOpen(true)
         } else {
           console.error('[TIMER] Invalid score response:', res)
+          // Fallback: show error modal
+          alert('Game ended but could not load results. Please refresh.')
         }
       })
     }
@@ -1138,7 +1130,7 @@ export default function GameBoard(){
       )}
 
       {/* Final Result Modal */}
-      {finalResultOpen && finalResultData && finalResultData.leaderboard && (
+      {finalResultOpen && finalResultData && Array.isArray(finalResultData.leaderboard) && (
         <div className="modal-backdrop final-result-backdrop">
           <div className="final-result-modal" onClick={e => e.stopPropagation()}>
             <div className="final-result-header">
@@ -1168,7 +1160,7 @@ export default function GameBoard(){
                     </div>
                     
                     {/* Show completed cards */}
-                    {player.completedCards && player.completedCards.length > 0 && (
+                    {player.completedCards && Array.isArray(player.completedCards) && player.completedCards.length > 0 && (
                       <div className="completed-cards-section">
                         <div className="completed-cards-label">Completed Cards:</div>
                         <div className="completed-cards-grid">
@@ -1181,7 +1173,7 @@ export default function GameBoard(){
                       </div>
                     )}
                     
-                    {player.bonuses && player.bonuses.length > 0 && (
+                    {player.bonuses && Array.isArray(player.bonuses) && player.bonuses.length > 0 && (
                       <div className="bonuses-section">
                         <div className="bonuses-label">Bonuses:</div>
                         <div className="bonuses-list">

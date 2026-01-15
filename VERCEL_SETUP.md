@@ -28,7 +28,8 @@ git push
 6. **Environment Variables** (Add these):
    - Name: `VITE_API_URL`
    - Value: `https://your-railway-url.railway.app` (get this from Railway)
-   - For now, you can use: `http://localhost:3001`
+   - ⚠️ **CRITICAL**: You MUST set this before the game will work!
+   - For testing locally, you can use: `http://localhost:3001`
 
 7. **Click** "Deploy"
 

@@ -8,6 +8,7 @@ import { loadRooms, saveRoom, deleteRoom } from "./storage.js";
 const app = express();
 app.use(cors({
   origin: [
+    'https://52-puzzle-trade1.vercel.app',
     'https://52-puzzle-trade.vercel.app',
     'http://localhost:5173'
   ],
@@ -19,6 +20,7 @@ const server = http.createServer(app);
 const io = new Server(server, { 
   cors: { 
     origin: [
+      'https://52-puzzle-trade1.vercel.app',
       'https://52-puzzle-trade.vercel.app',
       'http://localhost:5173'
     ],
