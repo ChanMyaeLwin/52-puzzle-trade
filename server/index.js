@@ -3,13 +3,14 @@ import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
 import { Game } from "./game.js";
-import { loadRooms, saveRoom, deleteRoom } from "./storage.js";
+import { loadRooms, saveRoom, deleteRoom } from "./storage-json.js";
 
 const app = express();
 app.use(cors({
   origin: [
     'https://52-puzzle-trade1.vercel.app',
     'https://52-puzzle-trade.vercel.app',
+    'https://52-puzzle-trade.up.railway.app',
     'http://localhost:5173'
   ],
   credentials: true
@@ -22,6 +23,7 @@ const io = new Server(server, {
     origin: [
       'https://52-puzzle-trade1.vercel.app',
       'https://52-puzzle-trade.vercel.app',
+      'https://52-puzzle-trade.up.railway.app',
       'http://localhost:5173'
     ],
     credentials: true
