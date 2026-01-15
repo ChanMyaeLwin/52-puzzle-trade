@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "cd server && npm install"
+buildCommand = "cd server && npm install && npm rebuild better-sqlite3"
 
 [deploy]
 startCommand = "cd server && node index.js"
