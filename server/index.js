@@ -6,11 +6,25 @@ import { Game } from "./game.js";
 import { loadRooms, saveRoom, deleteRoom } from "./storage.js";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://52-puzzle-trade.vercel.app',
+    'http://localhost:5173'
+  ],
+  credentials: true
+}));
 app.get("/health", (_, res) => res.json({ ok: true }));
 
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
+const io = new Server(server, { 
+  cors: { 
+    origin: [
+      'https://52-puzzle-trade.vercel.app',
+      'http://localhost:5173'
+    ],
+    credentials: true
+  } 
+});
 
 // Our in-memory game state (rooms live here), persisted to SQLite
 const game = new Game({ saveRoom, deleteRoom });
